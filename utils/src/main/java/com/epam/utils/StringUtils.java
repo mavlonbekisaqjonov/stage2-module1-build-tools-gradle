@@ -7,6 +7,6 @@ public class StringUtils {
         if (str == null) {
             return false;
         }
-        return NumberUtils.isParsable(str) && Double.parseDouble(str) > 0 && str.charAt(0)!=0;
+        return NumberUtils.isParsable(str) && Double.parseDouble(str) > 0 && str.trim().charAt(0)!= '0';
     }
 }
