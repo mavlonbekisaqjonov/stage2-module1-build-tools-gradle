@@ -1,33 +1,45 @@
 plugins {
-    // id for library
-    // id for maven to publish jar to local repository
+    id 'java'
+    id 'maven-publish'
 }
 
 java {
-// provide sourceCompatibility
-}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }}
 
 repositories {
-// provide repository, where required dependencies are located
+    mavenCentral()
 }
 
 publishing {
     publications {
         maven(MavenPublication) {
-// provide groupId
-// provide artifactId
-// provide version
+            groupId = 'com.example.utils'
+            artifactId = 'utils'
+            version = '1.3.5'
 
             from components.java
         }
     }
 }
 
-//add Apache Apache Commons Lang 3.10 (or higher) dependency
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.10'
+}
 
 jar {
+    archiveBaseName.set('utils')
+    archiveVersion.set('1.3.5')
+    archiveClassifier.set('')
+
     manifest {
-        //provide manifest with such attributes as 'Implementation-Title', 'Implementation-Version'
+        attributes(
+                'Implementation-Title': 'Utils Library',
+                'Implementation-Version': archiveVersion.get(),
+                'Built-By': System.getProperty('user.name'),
+                'Built-Date': new Date().format("yyyy-MM-dd HH:mm:ss")
+        )
     }
 }
 
